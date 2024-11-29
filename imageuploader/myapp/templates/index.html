@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Uploader</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container mt-5">
+  <div class="row">
+    <!-- Display uploaded images -->
+    <div class="col-12">
+      <h2 class="text-center" style="background-color:blue; color:white;">Uploaded Images</h2>
+      <div class="row">
+        {% for image in img %}
+        <div class="col-md-3 mb-4 m-3">
+          <div class="card" style="width: 18rem;">
+            <img src="{{ image.photo.url }}" style="border:2px" class="card-img-top" alt="Image" width='400px'height='300px'>
+            <div class="card-body">
+              <h5 class="card-title">{{ image.date }}</h5>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <p>No images uploaded yet.</p>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Image Upload Form -->
+    <div class="col-12 mt-5">
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Upload</button>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>
